@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Head from 'next/head'
 import Script from 'next/script'
 
@@ -6,7 +8,7 @@ import App from '../components/App'
 const TITLE = 'NFT PFP Minter'
 const DESCRIPTION = 'Mint your very own NFT PFPs for 0 gwei for use on bird-related platforms'
 
-export default function() {
+export default function Minter() {
 	return (
 		<>
 			<Head>

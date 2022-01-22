@@ -1,4 +1,4 @@
-import { DragEventHandler, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import useMobileDetect from 'use-mobile-detect-hook'
 
@@ -36,26 +36,26 @@ export default function App() {
 
 	// Drag and drop
 	function handleDragEnter(e) {
-    e.preventDefault()
-    e.stopPropagation()
-  }
+		e.preventDefault()
+		e.stopPropagation()
+	}
 
-  function handleDragLeave(e) {
-    e.preventDefault()
-    e.stopPropagation()
-  }
+	function handleDragLeave(e) {
+		e.preventDefault()
+		e.stopPropagation()
+	}
 
-  function handleDragOver(e) {
-    e.preventDefault()
-    e.stopPropagation()
-  }
+	function handleDragOver(e) {
+		e.preventDefault()
+		e.stopPropagation()
+	}
 
-  function handleDrop(e) {
-    e.preventDefault()
-    e.stopPropagation()
+	function handleDrop(e) {
+		e.preventDefault()
+		e.stopPropagation()
 
 		onProfileImageUploaded(e)
-  }
+	}
 
 	// Canvas
 	function draw() {
@@ -94,15 +94,13 @@ export default function App() {
 		const url = canvasRef.current.toDataURL('image/png')
 
 		saveImageRef.current.href = url
-		saveImageRef.current.download = `nft-pfp.png`
+		saveImageRef.current.download = 'nft-pfp.png'
 		saveImageRef.current.click()
 	}
 
 	// Canvas updater
 	useEffect(() => {
 		pfpImageRef.current.onload = draw
-
-		return () => {}
 	}, [])
 
 	const dropHandlers = {

@@ -10,6 +10,7 @@
     "start": "next start",
     "dev": "next dev",
     "build": "next build",
+    "lint": "eslint --ext .ts,.tsx",
     "postinstall": "patch-package"
   },
   "dependencies": {
@@ -20,7 +21,11 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.38",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
     "autoprefixer": "^10.4.2",
+    "eslint": "^8.7.0",
+    "eslint-plugin-react": "^7.28.0",
     "patch-package": "^6.4.7",
     "postcss": "^8.4.5",
     "postinstall-postinstall": "^2.1.0",
