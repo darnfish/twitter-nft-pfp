@@ -2,12 +2,6 @@ import { DragEventHandler, useEffect, useRef, useState } from 'react'
 
 import useMobileDetect from 'use-mobile-detect-hook'
 
-const SVG_SIZE = 400
-const NFT_HEIGHT = SVG_SIZE * 0.9399
-const NFT_SPACING = (SVG_SIZE - NFT_HEIGHT) / 2
-
-const DEFAULT_STYLE = { width: SVG_SIZE, height: SVG_SIZE }
-
 export default function App() {
 	// Hooks
 	const detectMobile = useMobileDetect()
@@ -65,17 +59,30 @@ export default function App() {
 
 	// Canvas
 	function draw() {
+		// Get width + height of image
+		const width = pfpImageRef.current.naturalWidth
+		const height = pfpImageRef.current.naturalHeight
+
+		// Update canvas
+		canvasRef.current.width = width
+		canvasRef.current.height = height
+
+		// Get canvas 2d context
 		const ctx = canvasRef.current.getContext('2d')
 
 		// Clean previous canvas stuff
-		ctx.clearRect(0, 0, SVG_SIZE, SVG_SIZE)
+		ctx.clearRect(0, 0, width, height)
+
+		// Get height padding (because the aspect ratio of the frame isn't 1:1)
+		const adjustedHeight = height * 0.9399
+		const spacing = (height - adjustedHeight) / 2
 
 		// Add the frame
-		ctx.drawImage(frameImageRef.current, 0, NFT_SPACING, SVG_SIZE, NFT_HEIGHT)
+		ctx.drawImage(frameImageRef.current, 0, spacing, width, adjustedHeight)
 		ctx.globalCompositeOperation = 'source-in'
 
 		// Add the PFP
-		ctx.drawImage(pfpImageRef.current, 0, 0, SVG_SIZE, SVG_SIZE)
+		ctx.drawImage(pfpImageRef.current, 0, 0, width, height)
 		ctx.globalCompositeOperation = 'destination-atop'
 
 		// Done
@@ -112,14 +119,14 @@ export default function App() {
 			<a ref={saveImageRef} className='save-loader' />
 
 			<div className={`flex w-full flex-col place-content-center ${!uploaded && 'hidden'}`}>
-				<canvas className='aspect-square cursor-pointer w-full' ref={canvasRef} width={SVG_SIZE} height={SVG_SIZE} onClick={showUploadPrompt} {...dropHandlers} />
+				<canvas className='aspect-square cursor-pointer w-full' ref={canvasRef} width={400} height={400} onClick={showUploadPrompt} {...dropHandlers} />
 				<button className='bg-sky-500 mt-4 px-4 py-2 text-lg text-white rounded-full' onClick={saveImage}>Auto Right Click &gt; Save As...</button>
 			</div>
 
 			{/* Actual UI */}
 			{!uploaded && (
 				<div className='cursor-pointer' onClick={showUploadPrompt} {...dropHandlers}>
-					<img className='' style={{ width: '100%', marginTop: NFT_SPACING, marginBottom: NFT_SPACING }} src='/nft/frame.svg' />
+					<img className='w-full' src='/nft/frame.svg' />
 					<div className='fixed center-fixed-x center-fixed-y w-full flex flex-col place-content-center top-10'>
 						{detectMobile.isMobile() ? (
 							<p className='text-center font-bold text-lg'>Tap here to upload</p>
@@ -140,7 +147,6 @@ export default function App() {
 				onChange={onProfileImageUploaded}
 
 				className='fixed hidden center-fixed-y cursor-pointer top-0 left-0 w-full'
-				style={{ height: SVG_SIZE }}
 			/>
 		</div>
 	)
