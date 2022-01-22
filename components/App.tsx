@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import useMobileDetect from 'use-mobile-detect-hook'
 
+const TWEET_URL = 'https://twitter.com/intent/tweet?url=https%3A%2F%2Ftwitter-nft-pfp.vercel.app%2F&text=I%20just%20hexagonified%20my%20pfp%20for%20FREE%20using%20Twitter%20NFT%20PFP%21&hashtags=nft%2Cnftpfp%2Ccrypto'
+
 export default function App() {
 	// Hooks
 	const detectMobile = useMobileDetect()
@@ -119,6 +121,7 @@ export default function App() {
 			<div className={`flex w-full flex-col place-content-center ${!uploaded && 'hidden'}`}>
 				<canvas className='aspect-square cursor-pointer w-full' ref={canvasRef} width={400} height={400} onClick={showUploadPrompt} {...dropHandlers} />
 				<button className='bg-sky-500 mt-4 px-4 py-2 text-lg text-white rounded-full' onClick={saveImage}>Auto Right Click &gt; Save As...</button>
+				<a className='border-2 border-sky-500 text-sky-500 mt-2 px-4 py-2 text-lg text-center rounded-full w-full' href={TWEET_URL} rel='noreferrer' target='_blank'>Spread the word</a>
 			</div>
 
 			{/* Actual UI */}
