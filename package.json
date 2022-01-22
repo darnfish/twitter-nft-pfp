@@ -1,0 +1,23 @@
+{
+  "name": "twitter-nft-pfp",
+  "version": "1.0.0",
+  "description": "Make your very own NFT PFP for Twittetr",
+  "main": "index.js",
+  "repository": "https://github.com/darnfish/twitter-nft-pfp",
+  "author": "William Gibson <william@tired.io>",
+  "license": "MIT",
+  "scripts": {
+    "start": "next start",
+    "dev": "next dev",
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "^12.0.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.38",
+    "typescript": "^4.5.5"
+  }
+}

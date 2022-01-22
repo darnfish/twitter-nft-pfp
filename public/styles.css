@@ -1,0 +1,7 @@
+canvas {
+	background-color: lightgray
+}
+
+img.pfp-loader, a.save-loader, img.frame-loader {
+	display: none
+}
