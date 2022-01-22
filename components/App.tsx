@@ -110,7 +110,7 @@ export default function App() {
 	}
 
 	return (
-		<div className='bg-white drop-shadow-lg flex flex-col place-content-center px-12 py-10 md:w-1/2 xl:w-1/3 container mx-auto'>
+		<div className='bg-white flex flex-col place-content-center px-12 py-10 md:w-1/2 xl:w-1/3 container mx-auto'>
 			<img ref={pfpImageRef} className='pfp-loader' />
 			<img ref={frameImageRef} src='/nft/mask.svg' className='frame-loader' />
 			<a ref={saveImageRef} className='save-loader' />

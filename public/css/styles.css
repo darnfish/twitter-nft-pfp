@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-	@apply bg-slate-50
-}
-
 img.pfp-loader, a.save-loader, img.frame-loader {
 	display: none
 }
