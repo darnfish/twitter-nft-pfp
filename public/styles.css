@@ -1,7 +1,26 @@
-canvas {
-	background-color: lightgray
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply bg-slate-50
 }
 
 img.pfp-loader, a.save-loader, img.frame-loader {
 	display: none
+}
+
+/* Hacky hack */
+.center-fixed-x {
+	left: 50%;
+	transform: translateX(-50%)
+}
+
+.center-fixed-y {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.center-fixed-x.center-fixed-y {
+	transform: translate(-50%, -50%)
 }
