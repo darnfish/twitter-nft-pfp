@@ -129,9 +129,6 @@ export default function App() {
 		ctx.drawImage(pfpImageRef.current, xPos, yPos, newWidth, newHeight)
 		ctx.globalCompositeOperation = 'destination-atop'
 
-		console.log({ width, height })
-		console.log({ xPos, yPos, newWidth, newHeight })
-		console.log({ originalWidth, originalHeight })
 		// Done
 		ctx.restore()
 	}
