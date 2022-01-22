@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import useMobileDetect from 'use-mobile-detect-hook'
 
+const MIN_SIZE = 600
 const TWEET_URL = 'https://twitter.com/intent/tweet?url=https%3A%2F%2Ftwitter-nft-pfp.vercel.app%2F&text=I%20just%20hexagonified%20my%20pfp%20for%20FREE%20using%20Twitter%20NFT%20PFP%21&hashtags=nft%2Cnftpfp%2Ccrypto'
 
 export default function App() {
@@ -62,8 +63,11 @@ export default function App() {
 	// Canvas
 	function draw() {
 		// Get width + height of image
-		let width = pfpImageRef.current.naturalWidth
-		let height = pfpImageRef.current.naturalHeight
+		const originalWidth = pfpImageRef.current.naturalWidth
+		const originalHeight = pfpImageRef.current.naturalHeight
+
+		let width = originalWidth
+		let height = originalHeight
 		
 		// Make sure the image is square
 		if(width !== height)
@@ -71,6 +75,12 @@ export default function App() {
 				width = height
 			else
 				height = width
+
+		// If the image is kinda small, make it bigger (otherwise the frame will be blurry)
+		if(width < MIN_SIZE || height < MIN_SIZE) {
+			width = MIN_SIZE
+			height = MIN_SIZE
+		}
 
 		// Update canvas
 		canvasRef.current.width = width
@@ -90,10 +100,38 @@ export default function App() {
 		ctx.drawImage(frameImageRef.current, 0, spacing, width, adjustedHeight)
 		ctx.globalCompositeOperation = 'source-in'
 
+		// The image (if it was not 1:1 when uploaded) should scale to fit + center
+		let xPos = 0
+		let yPos = 0
+		let newWidth = 0
+		let newHeight = 0
+
+		if(originalWidth > originalHeight) { // The image is longer on the x axis
+			const ratio = originalWidth / originalHeight
+
+			newWidth = width * ratio
+			newHeight = height
+
+			xPos = (width - newWidth) / 2
+		} else if(originalHeight > originalWidth) { // If the image is longer on the y axis
+			const ratio = originalHeight / originalWidth
+
+			newWidth = width
+			newHeight = height * ratio
+
+			yPos = (height - newHeight) / 2
+		} else { // If the image was always square
+			newWidth = width
+			newHeight = height
+		}
+
 		// Add the PFP
-		ctx.drawImage(pfpImageRef.current, 0, 0)
+		ctx.drawImage(pfpImageRef.current, xPos, yPos, newWidth, newHeight)
 		ctx.globalCompositeOperation = 'destination-atop'
 
+		console.log({ width, height })
+		console.log({ xPos, yPos, newWidth, newHeight })
+		console.log({ originalWidth, originalHeight })
 		// Done
 		ctx.restore()
 	}
