@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { DragEventHandler, useEffect, useRef, useState } from 'react'
 
 import useMobileDetect from 'use-mobile-detect-hook'
 
@@ -30,14 +30,39 @@ export default function App() {
 	}
 
 	function onProfileImageUploaded(event) {
-		const file = event.target.files[0]
-		const fileUrl = URL.createObjectURL(file)
+		const file = (event.dataTransfer || event.target).files[0]
+		if(!file)
+			return
 
+		const fileUrl = URL.createObjectURL(file)
 		pfpImageRef.current.src = fileUrl
 
 		if(!uploaded)
 			setUploaded(true)
 	}
+
+	// Drag and drop
+	function handleDragEnter(e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  function handleDragLeave(e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  function handleDrop(e) {
+    e.preventDefault()
+    e.stopPropagation()
+
+		onProfileImageUploaded(e)
+  }
 
 	// Canvas
 	function drawProfilePicture(ctx: CanvasRenderingContext2D) {
@@ -77,6 +102,13 @@ export default function App() {
 		return () => {}
 	}, [])
 
+	const dropHandlers = {
+		onDrop: handleDrop,
+		onDragOver: handleDragOver,
+		onDragEnter: handleDragEnter,
+		onDragLeave: handleDragLeave
+	}
+
 	return (
 		<div className='bg-white drop-shadow-lg flex flex-col place-content-center px-12 py-10 md:w-1/2 xl:w-1/3 container mx-auto'>
 			<img ref={pfpImageRef} className='pfp-loader' />
@@ -84,13 +116,13 @@ export default function App() {
 			<a ref={saveImageRef} className='save-loader' />
 
 			<div className={`flex w-full flex-col place-content-center ${!uploaded && 'hidden'}`}>
-				<canvas className='aspect-square w-full' ref={canvasRef} width={SVG_SIZE} height={SVG_SIZE} onClick={showUploadPrompt} />
+				<canvas className='aspect-square cursor-pointer w-full' ref={canvasRef} width={SVG_SIZE} height={SVG_SIZE} onClick={showUploadPrompt} {...dropHandlers} />
 				<button className='bg-sky-500 mt-4 px-4 py-2 text-lg text-white rounded-full' onClick={saveImage}>Auto Right Click &gt; Save As...</button>
 			</div>
 
 			{/* Actual UI */}
 			{!uploaded && (
-				<div onClick={showUploadPrompt}>
+				<div className='cursor-pointer' onClick={showUploadPrompt} {...dropHandlers}>
 					<img className='' style={{ width: '100%', marginTop: NFT_SPACING, marginBottom: NFT_SPACING }} src='/nft/frame.svg' />
 					<div className='fixed center-fixed-x center-fixed-y w-full flex flex-col place-content-center top-10'>
 						{detectMobile.isMobile() ? (
