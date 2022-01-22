@@ -24,3 +24,18 @@ img.pfp-loader, a.save-loader, img.frame-loader {
 .center-fixed-x.center-fixed-y {
 	transform: translate(-50%, -50%)
 }
+
+body {
+	-webkit-user-select: none;        
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none
+}
