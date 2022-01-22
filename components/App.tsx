@@ -62,8 +62,15 @@ export default function App() {
 	// Canvas
 	function draw() {
 		// Get width + height of image
-		const width = pfpImageRef.current.naturalWidth
-		const height = pfpImageRef.current.naturalHeight
+		let width = pfpImageRef.current.naturalWidth
+		let height = pfpImageRef.current.naturalHeight
+		
+		// Make sure the image is square
+		if(width !== height)
+			if(width > height)
+				width = height
+			else
+				height = width
 
 		// Update canvas
 		canvasRef.current.width = width
@@ -84,7 +91,7 @@ export default function App() {
 		ctx.globalCompositeOperation = 'source-in'
 
 		// Add the PFP
-		ctx.drawImage(pfpImageRef.current, 0, 0, width, height)
+		ctx.drawImage(pfpImageRef.current, 0, 0)
 		ctx.globalCompositeOperation = 'destination-atop'
 
 		// Done
