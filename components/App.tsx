@@ -25,7 +25,6 @@ export default function App() {
 
 	// Profile image stuff
 	function showUploadPrompt() {
-		console.log(pfpUploadRef)
 		pfpUploadRef.current.click()
 	}
 
@@ -65,24 +64,21 @@ export default function App() {
   }
 
 	// Canvas
-	function drawProfilePicture(ctx: CanvasRenderingContext2D) {
-		ctx.drawImage(pfpImageRef.current, 0, 0, SVG_SIZE, SVG_SIZE)
-	}
-
-	function drawNFTFrame(ctx: CanvasRenderingContext2D) {
-		ctx.drawImage(frameImageRef.current, 0, NFT_SPACING, SVG_SIZE, NFT_HEIGHT)
-	}
-
 	function draw() {
 		const ctx = canvasRef.current.getContext('2d')
 
+		// Clean previous canvas stuff
 		ctx.clearRect(0, 0, SVG_SIZE, SVG_SIZE)
-		drawNFTFrame(ctx)
+
+		// Add the frame
+		ctx.drawImage(frameImageRef.current, 0, NFT_SPACING, SVG_SIZE, NFT_HEIGHT)
 		ctx.globalCompositeOperation = 'source-in'
 
-		drawProfilePicture(ctx)
+		// Add the PFP
+		ctx.drawImage(pfpImageRef.current, 0, 0, SVG_SIZE, SVG_SIZE)
 		ctx.globalCompositeOperation = 'destination-atop'
 
+		// Done
 		ctx.restore()
 	}
 
