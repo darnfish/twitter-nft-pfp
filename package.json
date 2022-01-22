@@ -9,7 +9,8 @@
   "scripts": {
     "start": "next start",
     "dev": "next dev",
-    "build": "next build"
+    "build": "next build",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "next": "^12.0.8",
@@ -20,7 +21,9 @@
   "devDependencies": {
     "@types/react": "^17.0.38",
     "autoprefixer": "^10.4.2",
+    "patch-package": "^6.4.7",
     "postcss": "^8.4.5",
+    "postinstall-postinstall": "^2.1.0",
     "tailwindcss": "^3.0.15",
     "typescript": "^4.5.5"
   }

@@ -1,0 +1,21 @@
+diff --git a/node_modules/use-mobile-detect-hook/build/index.d.ts b/node_modules/use-mobile-detect-hook/build/index.d.ts
+index 1e1dc80..6cdf6cc 100644
+--- a/node_modules/use-mobile-detect-hook/build/index.d.ts
++++ b/node_modules/use-mobile-detect-hook/build/index.d.ts
+@@ -1,11 +1,3 @@
+-declare const useEffect: any;
+-declare const getMobileDetect: (userAgent: string) => {
+-    isMobile: () => boolean;
+-    isDesktop: () => boolean;
+-    isAndroid: () => boolean;
+-    isIos: () => boolean;
+-    isSSR: () => boolean;
+-};
+ declare const useMobileDetect: () => {
+     isMobile: () => boolean;
+     isDesktop: () => boolean;
+@@ -13,3 +5,4 @@ declare const useMobileDetect: () => {
+     isIos: () => boolean;
+     isSSR: () => boolean;
+ };
++export default useMobileDetect;
