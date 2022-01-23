@@ -77,10 +77,8 @@ export default function App() {
 				height = width
 
 		// If the image is kinda small, make it bigger (otherwise the frame will be blurry)
-		if(width < MIN_SIZE || height < MIN_SIZE) {
-			width = MIN_SIZE
-			height = MIN_SIZE
-		}
+		width = Math.max(width, MIN_SIZE)
+		height = Math.max(height, MIN_SIZE)
 
 		// Update canvas
 		canvasRef.current.width = width
