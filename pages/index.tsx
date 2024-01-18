@@ -26,6 +26,8 @@ export default function Minter() {
 				<link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
 				<link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
 				<link rel='manifest' href='/site.webmanifest'></link>
+
+				<script async src="https://analytics.darn.cloud/script.js" data-website-id="21cb05f1-ffff-4489-a856-418b10802de7" />
 			</Head>
 			<div className='absolute w-full h-full flex place-content-center'>
 				<App />
