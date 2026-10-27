@@ -11,6 +11,9 @@ export default function App() {
 
 	// State
 	const [uploaded, setUploaded] = useState(false)
+	// The server can't see the user agent, so it always renders the desktop prompt.
+	// Switch to the mobile prompt only after hydration so React 18 doesn't report a mismatch.
+	const [hydrated, setHydrated] = useState(false)
 
 	// Refs
 	const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -140,6 +143,10 @@ export default function App() {
 		saveImageRef.current.click()
 	}
 
+	useEffect(() => {
+		setHydrated(true)
+	}, [])
+
 	// Canvas updater
 	useEffect(() => {
 		pfpImageRef.current.onload = draw
@@ -169,7 +176,7 @@ export default function App() {
 				<div className='cursor-pointer' onClick={showUploadPrompt} {...dropHandlers}>
 					<img className='w-full' src='/nft/frame.svg' />
 					<div className='fixed center-fixed-x center-fixed-y w-full flex flex-col place-content-center top-10'>
-						{detectMobile.isMobile() ? (
+						{hydrated && detectMobile.isMobile() ? (
 							<p className='text-center font-bold text-lg'>Tap here to upload</p>
 						) : (
 							<>
